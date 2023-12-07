@@ -8,7 +8,7 @@ from selenium.webdriver.chrome.options import Options
 from bs4 import BeautifulSoup
 import pandas as pd
 import time
-from webdriver_manager.chrome import ChromeDriverManager
+from pyvirtualdisplay import Display
 
 html_temp = """
               <div style="background-color:{};padding:1px">
