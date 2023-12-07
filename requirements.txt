@@ -3,3 +3,4 @@ pandas
 selenium
 streamlit
 webdriver_manager
+pyvirtualdisplay
