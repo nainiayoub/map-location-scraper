@@ -8,6 +8,7 @@ from selenium.webdriver.chrome.options import Options
 from bs4 import BeautifulSoup
 import pandas as pd
 import time
+from webdriver_manager.chrome import ChromeDriverManager
 
 html_temp = """
               <div style="background-color:{};padding:1px">
@@ -48,11 +49,14 @@ if place and country:
   query = "+".join(query.split())
   url = 'https://www.google.com/maps/search/'+query+'/'
   #Preparing the chrome webdriver to scrap Google results:
+  display = Display(visible=0, size=(800, 600))
+  display.start()
   chrome_options = Options()
   chrome_options.add_argument('--headless')
   chrome_options.add_argument('--no-sandbox')
   chrome_options.add_argument('--disable-dev-shm-usage')
   chrome_options.add_argument("user-agent=whatever you want")
+  chrome_options.binary_location = '/usr/bin/google-chrome'
   driver = webdriver.Chrome(service = Service(ChromeDriverManager().install()), options=chrome_options)
   driver.get(url)
   with st.spinner(search):
@@ -74,3 +78,5 @@ if place and country:
   st.info(result)
   with st.expander("Open Location Results"):
     st.dataframe(ny_df)
+  display.stop()
+  driver.quit()
